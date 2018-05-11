@@ -40,7 +40,7 @@ function output = SVMLS(x_data, y_data, unknown, transformation, gamma, a, b, va
         
     gamma_matrix = 1/gamma*eye(size(x_data, 2));
     Omega = Omega + gamma_matrix;
-
+        
     A = [[0 y_data]' [-1.*y_data; Omega]];
     o = [0; ones(size(x_data, 2), 1)];
 
