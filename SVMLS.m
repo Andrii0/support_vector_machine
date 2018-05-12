@@ -43,7 +43,6 @@ function output = SVMLS(x_data, y_data, unknown, transformation, gamma, a, b, va
         
     A = [[0 y_data]' [-1.*y_data; Omega]];
     o = [0; ones(size(x_data, 2), 1)];
-
     x = A\o;
     
     y = zeros(size(unknown,2), 1);
@@ -55,8 +54,7 @@ function output = SVMLS(x_data, y_data, unknown, transformation, gamma, a, b, va
         
         y(j) = sign(sum);
     end
-    
-    
-    
     output = y;
+    
+
 end
