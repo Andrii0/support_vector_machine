@@ -46,18 +46,13 @@ function output = SVMLS(x_data, y_data, unknown, transformation, gamma, a, b, va
     o = [0; ones(x_size, 1)];
     x = A\o;
 
-    for i = 1:x_size
-        if (x(i+1) < 0)
-            x(i+1) = -1*x(i+1);
-            %x(i+1) = 0;
-        end
-    end
+  
     
     y = zeros(size(unknown,2), 1);
     for j = 1:size(unknown, 2)
         sum = 0;
         for i = 1:x_size
-            sum = sum + x(i+1)*y_data(i)*Fi(x_data(:,i), unknown(:,j))+x(1);
+            sum = sum + (x(i+1))^2*y_data(i)*Fi(x_data(:,i), unknown(:,j))+x(1);
         end
         
         y(j) = sign(sum);
