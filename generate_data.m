@@ -20,9 +20,9 @@ function generate_data()
     assignin('base','training_values',y_data);
     assignin('base','testing_data',unknown);
     %assignin('base','trans',3);
-    assignin('base','gamma',1);
-    assignin('base','a',0.7);
-    assignin('base','b',1);
+    %assignin('base','gamma',1);
+    %assignin('base','a',1);
+    %assignin('base','b',1);
     
     fprintf("new data generated\n")
 end
