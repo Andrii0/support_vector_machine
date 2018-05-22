@@ -1,5 +1,6 @@
 function output = SVMLS(x_data, y_data, unknown, transformation, gamma, a, b, varargin)
-    if not((size(x_data, 2) == size(y_data, 2)))
+    x_size = size(x_data, 2);
+    if not((x_size == size(y_data, 2)))
         return    
     end
     if nargin < 4
@@ -31,24 +32,30 @@ function output = SVMLS(x_data, y_data, unknown, transformation, gamma, a, b, va
         fprintf('error')
     end
 
-    Omega = zeros(size(x_data, 2), size(x_data, 2));
-    for i = 1:size(x_data, 2)
-        for j = 1:size(x_data, 2)
+    Omega = zeros(x_size, x_size);
+    for i = 1:x_size
+        for j = 1:x_size
             Omega(i,j) = y_data(i)*y_data(j)*Fi(x_data(:,i), x_data(:,j));
         end
     end
         
-    gamma_matrix = 1/gamma*eye(size(x_data, 2));
+    gamma_matrix = 1/gamma*eye(x_size);
     Omega = Omega + gamma_matrix;
         
     A = [[0 y_data]' [-1.*y_data; Omega]];
-    o = [0; ones(size(x_data, 2), 1)];
+    o = [0; ones(x_size, 1)];
     x = A\o;
+
+    for i = 1:x_size
+        if (x(i+1) < 0)
+            x(i+1) = -1*x(i+1);
+        end
+    end
     
     y = zeros(size(unknown,2), 1);
     for j = 1:size(unknown, 2)
         sum = 0;
-        for i = 1:size(x_data, 2)
+        for i = 1:x_size
             sum = sum + x(i+1)*y_data(i)*Fi(x_data(:,i), unknown(:,j))+x(1);
         end
         
